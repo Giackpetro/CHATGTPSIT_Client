@@ -78,7 +78,7 @@ public class Sender extends Thread {
     // funzione che ottiene il nome utente e lo invia al server
     public void getUsername() throws IOException {
         String username = this.getStringByUser();
-        out.writeBytes("CONNECT" + username + "\n");
+        out.writeBytes("CONNECT " + username + "\n");
     }
 
     //funzione di start che è la parte centrale della classe Sender e del funzionamento di essa
