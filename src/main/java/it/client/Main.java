@@ -8,8 +8,10 @@ public class Main {
     public static void main(String[] args) throws UnknownHostException, IOException {
         int port = 3000;
         Socket s = new Socket("localhost", port);
-        System.out.println("Client connesso al server");
-        Menu m = new Menu();
-        Operation o = new Operation(s);
+        System.out.println("Socket connesso al server");
+
+        Controller c = new Controller(s);
+        c.start();
+
     }
 }
