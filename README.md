@@ -1,4 +1,4 @@
-# Protocollo di Comunicazione
+# PROTOCOLLO DI COMUNICAZIONE
 
 README che descrive il protocollo di comunicazione utilizzato per il collegamento e l'interazione tra client e server.
 
