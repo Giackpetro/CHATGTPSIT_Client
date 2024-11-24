@@ -22,7 +22,7 @@ public class Receive extends Thread {
         switch (a[0]) {
             case "KO":
                 System.out.println("Errore, " + a[1]);
-                if (a[1].equals("user-not-avaiable")) {
+                if (a[1].equals("user-not-available")) {
                     c.alertUsernameError();
                 }
                 break;
@@ -42,7 +42,7 @@ public class Receive extends Thread {
                 break;
 
             default:
-                System.out.println("OK");
+                System.out.println(a[1] + " si è collegato alla chat");
                 break;
         }
     }
