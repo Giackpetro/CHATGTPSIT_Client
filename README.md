@@ -1,6 +1,6 @@
 # Protocollo di Comunicazione
 
-Questo documento descrive il protocollo di comunicazione utilizzato per il collegamento e l'interazione tra client e server.
+README che descrive il protocollo di comunicazione utilizzato per il collegamento e l'interazione tra client e server.
 
 ## AVVIENE IL COLLEGAMENTO DEL SOCKET AL SERVER
 
@@ -8,35 +8,36 @@ Questo documento descrive il protocollo di comunicazione utilizzato per il colle
 
 - **Client:** `CONNECT <nome>`
 - **Server:** 
-  - `JOIN <username>`  (se username disponibile)
-  - `KO user-not-available` (se username non disponibile)
-  - `KO session-timeout` (dopo timer di 1 minuto)
+  -  `JOIN <username>`  (se username disponibile, invia globalmente)
+  -  `KO user-not-available` (se username non disponibile, invia solo al client)
+  -  `KO session-timeout` (scaduta sessione di attesa, dopo un timer di 1 minuto. Invia solo al client)
 
 ### Utente Vuole Cambiare Nickname
 
 - **Client:** `CHANGE <new name>`
 - **Server:** 
-  - `JOIN <username>`  (se username disponibile)
-  - `KO user-not-available` (se username non disponibile)
+  -  `JOIN <username>`  (se username disponibile, invia globalmente)
+  -  `KO user-not-available` (se username non disponibile, invia solo al client)
 
 ### Chat Privata
 
 - **Client:** `PRIVATE <destinatario> <messaggio>`
-- **Server al mittente:** `OK`
-- **Server destinatario:** `PRIVATE <mittente> <messaggio>`
-- **Server:** `KO user-not-found` (se username non esiste)
+- **Server al mittente:**
+  -  `OK` (se utente destinatario esistente, invia solo al client mittente)
+  -  `KO user-not-found` (se utente destinatario non esiste, invia solo al client mittente)
+- **Server destinatario:** `PRIVATE <mittente> <messaggio>` 
 
 ### Lista Utenti Attivi
 
-- **Client:** `USERS` (richiede la lista di utenti online)
-- **Server:** `USERS <...> <...> <...> <...> <...>` (lista utenti divisi da uno spazio)
+- **Client:** `USERS` (richiede la lista di utenti online al server)
+- **Server:** `USERS <...> <...> <...> <...> <...>` (lista utenti divisi da uno spazio, invia solo al client che l'ha richiesto)
 
 ### Chat Globale
 
 - **Client:** `GLOBAL <messaggio>`
-- **Server manda a tutti:** `GLOBAL <mittente> <messaggio>`
+- **Server manda a tutti:** `GLOBAL <mittente> <messaggio>` (inviato globalmente, tranne al mittente)
 
 ### Disconnessione
 
 - **Client:** `ESC`
-- **Server:** `BYE <utente>` (mandato globalmente)
+- **Server:** `BYE <utente>` (inviato globalmente, tranne al mittente)
