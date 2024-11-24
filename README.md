@@ -16,7 +16,7 @@ README che descrive il protocollo di comunicazione utilizzato per il collegament
 
 - **Client:** `CHANGE <new name>`
 - **Server:** 
-  -  `JOIN <username>`  (se username disponibile, invia globalmente)
+  -  `ACCEPT <username>`  (se username disponibile, invia globalmente)
   -  `KO user-not-available` (se username non disponibile, invia solo al client)
 
 ### Chat Privata

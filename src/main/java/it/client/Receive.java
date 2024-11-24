@@ -16,19 +16,37 @@ public class Receive extends Thread {
         this.c = controller;
     }
 
-    //funzione che controlla le risposte del server, guardando se si trattano o no di errori
+    // funzione che controlla le risposte del server, guardando anche se si trattano
+    // o no di errori
     public void check(String[] a) throws IOException {
-        if (a[0].equals("KO")) {
-            System.out.println("Errore, " + a[1]);
-            if (a[1].equals("user-not-avaiable")) {
-                c.alertUsernameError();
-            }
-        } else if (a[0].equals("JOIN")) {
-            System.out.println("Client connesso al server");
-        } else {
-            System.out.println("OK");
+        switch (a[0]) {
+            case "KO":
+                System.out.println("Errore, " + a[1]);
+                if (a[1].equals("user-not-avaiable")) {
+                    c.alertUsernameError();
+                }
+                break;
+            
+            case "JOIN":
+                System.out.println("Client connesso al server");
+                break;
+            
+            case "ACCEPT":
+                System.out.println("Nuovo nome utente <" + a[1] + "> accettato");
+                break;
+            case "USERS":
+                System.out.println("Lista utenti attivi:");
+                for (int i = 1; i < a.length; i++) {
+                    System.out.println(a[i]);
+                }
+                break;
+
+            default:
+                System.out.println("OK");
+                break;
         }
     }
+
 
     // funzione di start che è la parte centrale della classe Receive e del
     // funzionamento di essa. Inoltre questa sta sempre in ascolto per prendere in
